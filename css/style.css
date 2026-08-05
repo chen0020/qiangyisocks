@@ -55,9 +55,9 @@ a{color:inherit;text-decoration:none;transition:color var(--t)}
 .drop-sub{padding:6px 18px 6px 30px !important;font-size:.82rem !important;color:var(--muted) !important;font-weight:400 !important}
 .drop-sub:hover{color:var(--text) !important;background:var(--tile)}
 /* ── Divider ── */
-.drop-sep{height:1px;background:var(--line);margin:6px 0}
-/* ── Top-level sibling items (Casual / Kids) ── */
-.drop-toplevel{padding:9px 18px !important;font-size:.85rem !important;font-weight:700 !important;color:var(--text) !important;border-left:3px solid transparent}
+.drop-sep{display:none}
+/* ── Top-level items (Sport / Casual / Kids) ── */
+.drop-toplevel{padding:9px 18px !important;font-size:.92rem !important;font-weight:700 !important;color:var(--text) !important;border-left:3px solid transparent}
 .drop-toplevel:hover{background:var(--tile);border-left-color:var(--accent)}
 .hdr-cta{display:inline-flex}
 .burger{display:none;background:none;border:0;font-size:1.4rem;cursor:pointer}
