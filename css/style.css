@@ -48,14 +48,17 @@ a{color:inherit;text-decoration:none;transition:color var(--t)}
 .mainnav>li:hover .drop{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
 .drop a{display:block;padding:8px 22px;font-size:.85rem;font-weight:500;white-space:nowrap}
 .drop a:hover{background:var(--tile)}
-/* ── Level-1 group label inside drop ── */
-.drop-group{padding:6px 22px 2px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-top:4px}
+/* ── Level-1 group label (Sport) ── */
+.drop-group{padding:8px 18px 4px;font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-top:2px;pointer-events:none}
 .drop-group:first-child{margin-top:0}
-/* ── Indented sub-items ── */
-.drop-sub{padding-left:32px !important;font-size:.82rem !important;color:var(--muted)}
-.drop-sub:hover{color:var(--text);background:var(--tile)}
+/* ── Indented sub-items under Sport ── */
+.drop-sub{padding:6px 18px 6px 30px !important;font-size:.82rem !important;color:var(--muted) !important;font-weight:400 !important}
+.drop-sub:hover{color:var(--text) !important;background:var(--tile)}
 /* ── Divider ── */
-.drop-sep{height:1px;background:var(--line);margin:8px 16px}
+.drop-sep{height:1px;background:var(--line);margin:6px 0}
+/* ── Top-level sibling items (Casual / Kids) ── */
+.drop-toplevel{padding:9px 18px !important;font-size:.85rem !important;font-weight:700 !important;color:var(--text) !important;border-left:3px solid transparent}
+.drop-toplevel:hover{background:var(--tile);border-left-color:var(--accent)}
 .hdr-cta{display:inline-flex}
 .burger{display:none;background:none;border:0;font-size:1.4rem;cursor:pointer}
 @media(max-width:900px){
