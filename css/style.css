@@ -212,13 +212,13 @@ a{color:inherit;text-decoration:none;transition:color var(--t)}
 
 /* ===== Category Card Grid (overlay label style) ===== */
 .catgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:28px}
-.catcard{position:relative;display:block;border-radius:10px;overflow:hidden;aspect-ratio:3/4;background:var(--tile)}
-.catcard img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.catcard{position:relative;display:block;border-radius:10px;overflow:hidden;height:260px;background:var(--tile)}
+.catcard img{position:absolute;inset:0;width:100%;height:100% !important;object-fit:cover;display:block;transition:transform .5s ease}
 .catcard:hover img{transform:scale(1.06)}
-.catcard-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.62) 0%,rgba(0,0,0,.08) 55%,transparent 100%);display:flex;align-items:flex-end;padding:16px 14px}
-.catcard-name{color:#fff;font-size:1rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;line-height:1.15;text-shadow:0 1px 6px rgba(0,0,0,.4)}
-@media(max-width:1100px){.catgrid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:580px){.catgrid{grid-template-columns:repeat(2,1fr)}}
+.catcard-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.68) 0%,rgba(0,0,0,.1) 50%,transparent 100%);display:flex;align-items:flex-end;padding:14px 12px}
+.catcard-name{color:#fff;font-size:.95rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;line-height:1.2;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+@media(max-width:1100px){.catgrid{grid-template-columns:repeat(3,1fr)}.catcard{height:220px}}
+@media(max-width:580px){.catgrid{grid-template-columns:repeat(2,1fr)}.catcard{height:180px}}
 
 /* ===== Core Advantage Bar ===== */
 .advbar{background:var(--text);color:#fff;padding:12px 0;border-top:1px solid rgba(255,255,255,.1)}
