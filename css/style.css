@@ -330,7 +330,7 @@ a{color:inherit;text-decoration:none;transition:color var(--t)}
 .perklist li::before{content:'✓ ';color:#2e7d32;font-weight:900}
 
 /* ===== Certifications Section ===== */
-.certs-section{padding:72px 0;background:var(--tile)}
+.certs-section{padding:80px 0;background:var(--tile)}
 .certs-section>.wrap>h2{font-size:2.2rem;font-weight:900;text-transform:uppercase;letter-spacing:-.03em;text-align:center;margin-bottom:10px}
 .certs-sub{text-align:center;color:var(--muted);margin-bottom:40px;font-size:.98rem}
 .certs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
@@ -375,3 +375,23 @@ a{color:inherit;text-decoration:none;transition:color var(--t)}
 }
 .cert-img-meta strong{display:block;font-size:.9rem;font-weight:800;margin-bottom:2px}
 .cert-img-meta p{font-size:.78rem;color:var(--muted)}
+
+/* ===== Certifications 3-col badge style ===== */
+.certs-header{text-align:center;margin-bottom:48px}
+.certs-header h2{font-size:2.2rem;font-weight:900;text-transform:uppercase;letter-spacing:-.03em;margin-bottom:10px}
+.certs-header p{font-size:1rem;color:var(--muted)}
+.certs-3grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:960px){.certs-3grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.certs-3grid{grid-template-columns:1fr}}
+.cert3-card{
+  text-align:center;padding:44px 28px;
+  background:#fff;border-radius:8px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.04);
+  transition:box-shadow var(--t);
+}
+.cert3-card:hover{box-shadow:0 4px 24px rgba(0,0,0,.1)}
+.cert3-img{width:88px;height:88px;object-fit:contain;margin:0 auto 20px}
+.cert3-card h3{font-size:.95rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.cert3-card p{font-size:.84rem;color:var(--muted);line-height:1.65}
+.cert3-link{display:inline-block;margin-top:14px;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;text-decoration:underline;text-underline-offset:3px;color:var(--navy)}
+.cert3-link:hover{color:var(--accent)}
