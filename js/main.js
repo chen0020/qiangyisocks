@@ -59,6 +59,11 @@
     });
   }
 
+  /* FAQ accordion */
+  document.querySelectorAll('.faq-q').forEach(function (b) {
+    b.addEventListener('click', function () { this.parentElement.classList.toggle('open'); });
+  });
+
   /* Quick quote form (homepage) */
   var qq = document.getElementById('quickQuoteForm');
   if (qq) {
