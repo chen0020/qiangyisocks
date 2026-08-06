@@ -59,6 +59,31 @@
     });
   }
 
+  /* Quick quote form (homepage) */
+  var qq = document.getElementById('quickQuoteForm');
+  if (qq) {
+    qq.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = qq.querySelector('button[type=submit]');
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      var payload = { _subject: 'Quick quote - qiangyisocks.com' };
+      ['email', 'product', 'quantity'].forEach(function (id) {
+        var f = qq.querySelector('[name="' + id + '"]');
+        if (f) { payload[id] = f.value; }
+      });
+      fetch('https://formsubmit.co/ajax/302550680@qq.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (r) { return r.json(); }).then(function () {
+        qq.innerHTML = '<p style="font-weight:700;font-size:.95rem;margin:0 auto">Thanks! Your free quote request is in — we reply within 5 hours.</p>';
+      }).catch(function () {
+        if (btn) { btn.disabled = false; btn.textContent = 'Get Free Quote'; }
+        qq.innerHTML = '<p style="font-weight:700;font-size:.95rem;margin:0 auto">Something went wrong — email us at 302550680@qq.com</p>';
+      });
+    });
+  }
+
   /* Inquiry form (contact page) */
   var inquiry = document.getElementById('inquiryForm');
   if (inquiry) {
