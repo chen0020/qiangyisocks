@@ -1,16 +1,9 @@
-// Decap CMS GitHub OAuth provider (Vercel serverless function) v2
-// Endpoints (rewritten by vercel.json):
-//   /auth?type=authorize  -> redirect to GitHub OAuth
-//   /auth?type=callback   -> exchange code, hand token back to Decap CMS
-const https = require('https');
+// v3 - rewritten as ES Module to force Vercel cold rebuild
+import https from 'node:https';
 
-function exchangeCode(code) {
+function exchangeCode(code, clientId, clientSecret) {
   return new Promise((resolve, reject) => {
-    const body = new URLSearchParams({
-      client_id: process.env.OAUTH_CLIENT_ID,
-      client_secret: process.env.OAUTH_CLIENT_SECRET,
-      code
-    }).toString();
+    const body = new URLSearchParams({ client_id: clientId, client_secret: clientSecret, code }).toString();
     const req = https.request({
       hostname: 'github.com',
       path: '/login/oauth/access_token',
@@ -31,21 +24,17 @@ function exchangeCode(code) {
   });
 }
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   const u = new URL(req.url, 'https://' + req.headers.host);
   const type = u.searchParams.get('type');
   const provider = u.searchParams.get('provider') || 'github';
   const code = u.searchParams.get('code');
+  const clientId = process.env.OAUTH_CLIENT_ID;
+  const clientSecret = process.env.OAUTH_CLIENT_SECRET;
 
-  // Decap v3 sends /auth?provider=github&site_id=...&scope=repo (no type)
-  // Legacy format sends /auth?type=authorize
   if (type === 'authorize' || (!code && provider)) {
     const redirect = 'https://' + req.headers.host + '/auth?type=callback&provider=' + provider;
-    const params = new URLSearchParams({
-      client_id: process.env.OAUTH_CLIENT_ID,
-      scope: 'repo,user',
-      redirect_uri: redirect
-    });
+    const params = new URLSearchParams({ client_id: clientId, scope: 'repo,user', redirect_uri: redirect });
     res.writeHead(302, { Location: 'https://github.com/login/oauth/authorize?' + params.toString() });
     return res.end();
   }
@@ -53,14 +42,11 @@ module.exports = async (req, res) => {
   if (type === 'callback' || code) {
     if (!code) { res.statusCode = 400; return res.end('missing code'); }
     try {
-      const data = await exchangeCode(code);
+      const data = await exchangeCode(code, clientId, clientSecret);
       const token = data.access_token;
       if (!token) { res.statusCode = 500; return res.end('no token: ' + JSON.stringify(data)); }
       const payload = JSON.stringify({ token, provider });
       const msg = 'authorization:' + provider + ':success:' + payload;
-      // GitHub OAuth redirect strips window.opener in all browsers.
-      // Strategy: try postMessage first; if opener is null, store in localStorage
-      // and redirect the popup back to /admin/ which reads it on load.
       const html = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>' +
         '<script>(function(){' +
         'var m=' + JSON.stringify(msg) + ';' +
@@ -82,4 +68,4 @@ module.exports = async (req, res) => {
 
   res.statusCode = 404;
   res.end('not found');
-};
+}
