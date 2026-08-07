@@ -57,10 +57,21 @@ module.exports = async (req, res) => {
       const token = data.access_token;
       if (!token) { res.statusCode = 500; return res.end('no token: ' + JSON.stringify(data)); }
       const payload = JSON.stringify({ token, provider });
-      const html = '<!DOCTYPE html><html><body><script>' +
-        'window.opener.postMessage("authorization:' + provider + ':success:' + payload + '", "*");' +
-        'window.close();' +
-        '<\/script><p>Success — you can close this window.</p></body></html>';
+      const msg = 'authorization:' + provider + ':success:' + payload;
+      // GitHub OAuth redirect strips window.opener in all browsers.
+      // Strategy: try postMessage first; if opener is null, store in localStorage
+      // and redirect the popup back to /admin/ which reads it on load.
+      const html = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>' +
+        '<script>(function(){' +
+        'var m=' + JSON.stringify(msg) + ';' +
+        'if(window.opener&&!window.opener.closed){' +
+        '  try{window.opener.postMessage(m,"*");setTimeout(function(){window.close();},300);return;}catch(e){}' +
+        '}' +
+        'try{localStorage.setItem("netlify-cms-user",m);}catch(e){}' +
+        'window.location.replace("/admin/");' +
+        '})();<\/script>' +
+        '<p style="font-family:sans-serif;padding:2rem">Redirecting&hellip;</p>' +
+        '</body></html>';
       res.setHeader('Content-Type', 'text/html');
       return res.end(html);
     } catch (e) {
