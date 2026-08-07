@@ -2,8 +2,7 @@ backend:
   name: github
   repo: chen0020/qiangyisocks
   branch: main
-  # OAuth provider 地址 —— 部署认证代理后更新为实际 URL
-  base_url: https://qiangyi-cms-auth.vercel.app
+  base_url: https://www.qiangyisocks.com
 
 media_folder: "images/products"
 public_folder: "/images/products"

@@ -1,0 +1,72 @@
+// Decap CMS GitHub OAuth provider (Vercel serverless function)
+// Endpoints (rewritten by vercel.json):
+//   /auth?type=authorize  -> redirect to GitHub OAuth
+//   /auth?type=callback   -> exchange code, hand token back to Decap CMS
+const https = require('https');
+
+function exchangeCode(code) {
+  return new Promise((resolve, reject) => {
+    const body = new URLSearchParams({
+      client_id: process.env.OAUTH_CLIENT_ID,
+      client_secret: process.env.OAUTH_CLIENT_SECRET,
+      code
+    }).toString();
+    const req = https.request({
+      hostname: 'github.com',
+      path: '/login/oauth/access_token',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json',
+        'Content-Length': Buffer.byteLength(body)
+      }
+    }, res => {
+      let d = '';
+      res.on('data', c => { d += c; });
+      res.on('end', () => { try { resolve(JSON.parse(d)); } catch (e) { reject(e); } });
+    });
+    req.on('error', reject);
+    req.write(body);
+    req.end();
+  });
+}
+
+module.exports = async (req, res) => {
+  const u = new URL(req.url, 'https://' + req.headers.host);
+  const type = u.searchParams.get('type');
+  const provider = 'github';
+
+  if (type === 'authorize') {
+    const redirect = 'https://' + req.headers.host + '/auth?type=callback';
+    const params = new URLSearchParams({
+      client_id: process.env.OAUTH_CLIENT_ID,
+      scope: 'repo,user',
+      redirect_uri: redirect
+    });
+    res.writeHead(302, { Location: 'https://github.com/login/oauth/authorize?' + params.toString() });
+    return res.end();
+  }
+
+  if (type === 'callback') {
+    const code = u.searchParams.get('code');
+    if (!code) { res.statusCode = 400; return res.end('missing code'); }
+    try {
+      const data = await exchangeCode(code);
+      const token = data.access_token;
+      if (!token) { res.statusCode = 500; return res.end('no token: ' + JSON.stringify(data)); }
+      const payload = JSON.stringify({ token, provider });
+      const html = '<!DOCTYPE html><html><body><script>' +
+        'window.opener.postMessage("authorization:' + provider + ':success:' + payload + '", "*");' +
+        'window.close();' +
+        '<\/script><p>Success — you can close this window.</p></body></html>';
+      res.setHeader('Content-Type', 'text/html');
+      return res.end(html);
+    } catch (e) {
+      res.statusCode = 500;
+      return res.end('auth error: ' + e.message);
+    }
+  }
+
+  res.statusCode = 404;
+  res.end('not found');
+};

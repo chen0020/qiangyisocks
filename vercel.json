@@ -1,0 +1,8 @@
+{
+  "buildCommand": "node build.js",
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/auth", "destination": "/api/oauth" },
+    { "source": "/auth/:path*", "destination": "/api/oauth" }
+  ]
+}
