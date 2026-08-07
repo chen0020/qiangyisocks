@@ -1,0 +1,36 @@
+backend:
+  name: github
+  repo: chen0020/qiangyisocks
+  branch: main
+  # OAuth provider 地址 —— 部署认证代理后更新为实际 URL
+  base_url: https://qiangyi-cms-auth.vercel.app
+
+media_folder: "images/products"
+public_folder: "/images/products"
+
+site_url: https://www.qiangyisocks.com
+logo_url: /images/logo.png
+
+collections:
+  - name: "products"
+    label: "Products"
+    label_singular: "Product"
+    folder: "content/products"
+    create: true
+    delete: true
+    format: json
+    extension: json
+    slug: "{{slug}}"
+    summary: "{{title}} — ${{price}} ({{category}})"
+    sortable_fields: [title, category, price]
+    fields:
+      - { label: "Product Title", name: "title", widget: "string", hint: "e.g. Custom Running Crew Socks" }
+      - { label: "Category", name: "category", widget: "select", options: ["running", "football", "basketball", "cycling", "yoga", "merino", "casual", "kids"] }
+      - { label: "Gender", name: "gender", widget: "select", options: ["men", "women", "unisex"], default: "unisex" }
+      - { label: "Technics", name: "technics", widget: "select", options: ["Jacquard", "Embroidery", "360 Print"], default: "Jacquard" }
+      - { label: "Product Image", name: "image", widget: "image", hint: "Upload a product photo (square works best)" }
+      - { label: "Badge", name: "badge", widget: "select", options: ["", "Bestseller", "New", "Hot"], default: "" }
+      - { label: "Materials", name: "materials", widget: "list", field: { label: "Material", name: "material", widget: "string", hint: "e.g. 80% Cotton" } }
+      - { label: "MOQ (pairs)", name: "moq", widget: "number", default: 100, value_type: "int" }
+      - { label: "Price from (USD per pair)", name: "price", widget: "string", hint: "e.g. 0.85" }
+      - { label: "Description", name: "description", widget: "text", required: false }
