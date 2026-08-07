@@ -12,7 +12,7 @@ const TAIL = html.slice(tailStart);
 
 const CATS = {
   sport: {
-    filter: "<div class='filterbar'><div class='filterbar-in'><span class='filter-label'>Gender:</span><span class='ftag active'>All</span><span class='ftag'>Men</span><span class='ftag'>Women</span><span class='ftag'>Unisex</span><div class='filter-sep'></div><span class='filter-label'>Technics:</span><span class='ftag'>Jacquard</span><span class='ftag'>Embroidery</span><span class='ftag'>360 Print</span></div></div>",
+    filter: "",
     groups: {
       running: { id: 'running', alt: '', eyebrow: 'Sport - Running', h2: 'Running' },
       football: { id: 'football', alt: 'alt', eyebrow: 'Sport - Football', h2: 'Football' },
@@ -23,11 +23,11 @@ const CATS = {
     }
   },
   casual: {
-    filter: "<div class='filterbar'><div class='filterbar-in'><span class='filter-label'>Height:</span><span class='ftag active'>All</span><span class='ftag'>Ankle</span><span class='ftag'>Crew</span><span class='ftag'>Knee High</span><div class='filter-sep'></div><span class='filter-label'>Gender:</span><span class='ftag'>Men</span><span class='ftag'>Women</span><span class='ftag'>Unisex</span></div></div>",
+    filter: "",
     groups: { casual: { id: 'casual-grid', alt: '', eyebrow: 'Casual and Fashion', h2: 'All Casual Styles' } }
   },
   kids: {
-    filter: "<div class='filterbar'><div class='filterbar-in'><span class='filter-label'>Age:</span><span class='ftag active'>All</span><span class='ftag'>Baby 0-2Y</span><span class='ftag'>Kids 3-12Y</span><div class='filter-sep'></div><span class='filter-label'>Material:</span><span class='ftag'>Cotton</span><span class='ftag'>Bamboo</span><span class='ftag'>Organic</span></div></div>",
+    filter: "",
     groups: { kids: { id: 'kids-grid', alt: 'alt', eyebrow: 'Kids', h2: 'Kids &amp; Infant Styles' } }
   }
 };
