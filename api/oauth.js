@@ -57,15 +57,10 @@ module.exports = async (req, res) => {
       const token = data.access_token;
       if (!token) { res.statusCode = 500; return res.end('no token: ' + JSON.stringify(data)); }
       const payload = JSON.stringify({ token, provider });
-      const msg = JSON.stringify('authorization:' + provider + ':success:' + payload);
-      const html = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>' +
-        '<p id="s" style="font-family:sans-serif;margin:2rem">Success &mdash; you can close this window.</p>' +
-        '<script>(function(){' +
-        'var m=' + msg + ';' +
-        'function send(){if(window.opener){window.opener.postMessage(m,"*");setTimeout(function(){window.close();},500);}' +
-        'else{document.getElementById("s").textContent="Authorized! Return to the CMS tab.";}}' +
-        'send();setTimeout(send,800);setTimeout(send,2000);' +
-        '})();<\/script></body></html>';
+      const html = '<!DOCTYPE html><html><body><script>' +
+        'window.opener.postMessage("authorization:' + provider + ':success:' + payload + '", "*");' +
+        'window.close();' +
+        '<\/script><p>Success — you can close this window.</p></body></html>';
       res.setHeader('Content-Type', 'text/html');
       return res.end(html);
     } catch (e) {
