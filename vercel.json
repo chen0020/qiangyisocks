@@ -2,7 +2,7 @@
   "buildCommand": "node build.js",
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/auth", "destination": "/api/auth.mjs" },
-    { "source": "/auth/:path*", "destination": "/api/auth.mjs" }
+    { "source": "/auth", "destination": "/api/github-oauth" },
+    { "source": "/auth/:path*", "destination": "/api/github-oauth" }
   ]
 }

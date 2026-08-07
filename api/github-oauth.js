@@ -1,5 +1,5 @@
-// v3 - rewritten as ES Module to force Vercel cold rebuild
-import https from 'node:https';
+// Decap CMS GitHub OAuth handler
+const https = require('https');
 
 function exchangeCode(code, clientId, clientSecret) {
   return new Promise((resolve, reject) => {
@@ -13,10 +13,10 @@ function exchangeCode(code, clientId, clientSecret) {
         'Accept': 'application/json',
         'Content-Length': Buffer.byteLength(body)
       }
-    }, res => {
+    }, r => {
       let d = '';
-      res.on('data', c => { d += c; });
-      res.on('end', () => { try { resolve(JSON.parse(d)); } catch (e) { reject(e); } });
+      r.on('data', c => { d += c; });
+      r.on('end', () => { try { resolve(JSON.parse(d)); } catch (e) { reject(e); } });
     });
     req.on('error', reject);
     req.write(body);
@@ -24,7 +24,7 @@ function exchangeCode(code, clientId, clientSecret) {
   });
 }
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   const u = new URL(req.url, 'https://' + req.headers.host);
   const type = u.searchParams.get('type');
   const provider = u.searchParams.get('provider') || 'github';
@@ -68,4 +68,4 @@ export default async function handler(req, res) {
 
   res.statusCode = 404;
   res.end('not found');
-}
+};
