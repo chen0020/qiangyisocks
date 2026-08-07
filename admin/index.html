@@ -4,6 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Qiangyi Socks — Content Manager</title>
+  <script>
+    // Fallback for browsers where window.opener/postMessage is blocked (Edge).
+    // If oauth callback stored the token in sessionStorage, replay the postMessage
+    // to ourselves so Decap CMS picks it up normally.
+    (function () {
+      var msg = null;
+      try { msg = sessionStorage.getItem('decap_oauth_msg'); } catch (e) {}
+      if (msg) {
+        try { sessionStorage.removeItem('decap_oauth_msg'); } catch (e) {}
+        // Dispatch as a synthetic MessageEvent so Decap's listener fires.
+        window.addEventListener('load', function () {
+          setTimeout(function () {
+            window.dispatchEvent(new MessageEvent('message', {
+              data: msg,
+              origin: window.location.origin
+            }));
+          }, 800);
+        });
+      }
+    })();
+  </script>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>

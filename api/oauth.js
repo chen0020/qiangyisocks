@@ -58,13 +58,22 @@ module.exports = async (req, res) => {
       if (!token) { res.statusCode = 500; return res.end('no token: ' + JSON.stringify(data)); }
       const payload = JSON.stringify({ token, provider });
       const msg = JSON.stringify('authorization:' + provider + ':success:' + payload);
+      // Try postMessage first; if opener is null (Edge/Safari), store token in
+      // sessionStorage so the /admin/ page can pick it up on redirect.
       const html = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>' +
-        '<p id="s" style="font-family:sans-serif;margin:2rem">Success &mdash; you can close this window.</p>' +
+        '<p id="s" style="font-family:sans-serif;margin:2rem">Authorizing&hellip;</p>' +
         '<script>(function(){' +
         'var m=' + msg + ';' +
-        'function send(){if(window.opener){window.opener.postMessage(m,"*");setTimeout(function(){window.close();},500);}' +
-        'else{document.getElementById("s").textContent="Authorized! Return to the CMS tab.";}}' +
-        'send();setTimeout(send,800);setTimeout(send,2000);' +
+        'var sent=false;' +
+        'try{sessionStorage.setItem("decap_oauth_msg",m);}catch(e){}' +
+        'function send(){' +
+        '  if(window.opener){try{window.opener.postMessage(m,"*");sent=true;}catch(e){}}' +
+        '  if(sent){setTimeout(function(){window.close();},400);}' +
+        '  else{' +
+        '    window.location.href="/admin/#?cms_oauth=1";' +
+        '  }' +
+        '}' +
+        'send();setTimeout(send,600);' +
         '})();<\/script></body></html>';
       res.setHeader('Content-Type', 'text/html');
       return res.end(html);
