@@ -2,7 +2,7 @@ backend:
   name: github
   repo: chen0020/qiangyisocks
   branch: main
-  base_url: https://www.qiangyisocks.com
+  base_url: https://api.netlify.com
 
 media_folder: "images/products"
 public_folder: "/images/products"

@@ -4,27 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Qiangyi Socks — Content Manager</title>
-  <script>
-    // GitHub OAuth redirect strips window.opener in all browsers.
-    // Fallback: callback stores token in localStorage and redirects here.
-    // We fire a synthetic MessageEvent so Decap CMS receives the token normally.
-    (function () {
-      var KEY = 'netlify-cms-user';
-      var msg;
-      try { msg = localStorage.getItem(KEY); } catch (e) {}
-      if (msg) {
-        try { localStorage.removeItem(KEY); } catch (e) {}
-        window.addEventListener('load', function () {
-          setTimeout(function () {
-            window.dispatchEvent(new MessageEvent('message', {
-              data: msg,
-              origin: window.location.origin
-            }));
-          }, 1000);
-        });
-      }
-    })();
-  </script>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
