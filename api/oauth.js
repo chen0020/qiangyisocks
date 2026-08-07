@@ -34,10 +34,13 @@ function exchangeCode(code) {
 module.exports = async (req, res) => {
   const u = new URL(req.url, 'https://' + req.headers.host);
   const type = u.searchParams.get('type');
-  const provider = 'github';
+  const provider = u.searchParams.get('provider') || 'github';
+  const code = u.searchParams.get('code');
 
-  if (type === 'authorize') {
-    const redirect = 'https://' + req.headers.host + '/auth?type=callback';
+  // Decap v3 sends /auth?provider=github&site_id=...&scope=repo (no type)
+  // Legacy format sends /auth?type=authorize
+  if (type === 'authorize' || (!code && provider)) {
+    const redirect = 'https://' + req.headers.host + '/auth?type=callback&provider=' + provider;
     const params = new URLSearchParams({
       client_id: process.env.OAUTH_CLIENT_ID,
       scope: 'repo,user',
@@ -47,8 +50,7 @@ module.exports = async (req, res) => {
     return res.end();
   }
 
-  if (type === 'callback') {
-    const code = u.searchParams.get('code');
+  if (type === 'callback' || code) {
     if (!code) { res.statusCode = 400; return res.end('missing code'); }
     try {
       const data = await exchangeCode(code);
