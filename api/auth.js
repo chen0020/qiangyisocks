@@ -1,4 +1,4 @@
-// Decap CMS GitHub OAuth provider (Vercel serverless function)
+// Decap CMS GitHub OAuth provider (Vercel serverless function) v2
 // Endpoints (rewritten by vercel.json):
 //   /auth?type=authorize  -> redirect to GitHub OAuth
 //   /auth?type=callback   -> exchange code, hand token back to Decap CMS
