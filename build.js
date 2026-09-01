@@ -44,7 +44,7 @@ function card(p) {
   const mats = (p.materials || []).map(m => `<span class='ptag'>${esc(m)}</span>`).join('');
   const tech = p.technics ? `<span class='ptag'>${esc(p.technics)}</span>` : '';
   const moq = p.moq || 100;
-  return `<div class='prodcard'><div class='prodcard-img'><img src='${esc(img)}' alt='${esc(p.title)}' loading='lazy'>${badge}</div><div class='prodcard-body'><div class='prodcard-tags'>${mats}${tech}<span class='ptag'>MOQ ${moq}</span></div><div class='prodcard-name'>${esc(p.title)}</div><div class='prodcard-price'>From $${esc(p.price)} <span>/ pair</span></div><div class='prodcard-moq'>Minimum Order: ${moq} pairs</div><div class='prodcard-actions'><a href='contact.html' class='btn-detail'>View Details</a><button class='btn-inquiry' onclick='openModal()'>Quick Inquiry</button></div></div></div>`;
+  return `<div class='prodcard'><div class='prodcard-img'><img src='${esc(img)}' alt='${esc(p.title)}' loading='lazy'>${badge}</div><div class='prodcard-body'><div class='prodcard-tags'>${mats}${tech}<span class='ptag'>MOQ ${moq}</span></div><div class='prodcard-name'>${esc(p.title)}</div><div class='prodcard-moq'>Minimum Order: ${moq} pairs</div><div class='prodcard-actions'><a href='contact.html' class='btn-detail'>View Details</a><button class='btn-inquiry' onclick='openModal()'>Quick Inquiry</button></div></div></div>`;
 }
 
 function psection(g, cards) {
