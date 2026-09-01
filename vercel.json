@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node build.js",
+  "buildCommand": "echo 'static site, no build needed'",
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/auth", "destination": "/api/github-oauth" },
