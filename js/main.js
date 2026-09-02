@@ -76,7 +76,7 @@
         var f = qq.querySelector('[name="' + id + '"]');
         if (f) { payload[id] = f.value; }
       });
-      fetch('https://inquiry-router.qiangyisocks.workers.dev', {
+      fetch('https://inquiry-router.302550680.workers.dev', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -107,7 +107,7 @@
         var f = document.getElementById(id);
         if (f) { payload[id] = f.value; }
       });
-      fetch('https://inquiry-router.qiangyisocks.workers.dev', {
+      fetch('https://inquiry-router.302550680.workers.dev', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
