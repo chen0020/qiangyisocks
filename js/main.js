@@ -76,15 +76,15 @@
         var f = qq.querySelector('[name="' + id + '"]');
         if (f) { payload[id] = f.value; }
       });
-      fetch('https://formsubmit.co/ajax/302550680@qq.com', {
+      fetch('https://inquiry-router.qiangyisocks.workers.dev', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       }).then(function (r) { return r.json(); }).then(function () {
         qq.innerHTML = '<p style="font-weight:700;font-size:.95rem;margin:0 auto">Thanks! Your free quote request is in — we reply within 5 hours.</p>';
       }).catch(function () {
         if (btn) { btn.disabled = false; btn.textContent = 'Get Free Quote'; }
-        qq.innerHTML = '<p style="font-weight:700;font-size:.95rem;margin:0 auto">Something went wrong — email us at 302550680@qq.com</p>';
+        qq.innerHTML = '<p style="font-weight:700;font-size:.95rem;margin:0 auto">Something went wrong — email us at inquiry@qiangyisocks.com</p>';
       });
     });
   }
@@ -107,9 +107,9 @@
         var f = document.getElementById(id);
         if (f) { payload[id] = f.value; }
       });
-      fetch('https://formsubmit.co/ajax/302550680@qq.com', {
+      fetch('https://inquiry-router.qiangyisocks.workers.dev', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       }).then(function (r) { return r.json(); }).then(function () {
         inquiry.style.display = 'none';
@@ -119,7 +119,7 @@
         inquiry.parentNode.insertBefore(box, inquiry.nextSibling);
       }).catch(function () {
         if (btn) { btn.disabled = false; btn.textContent = 'Send Inquiry'; }
-        alert('Could not send. Please email us at 302550680@qq.com or message us on WhatsApp.');
+        alert('Could not send. Please email us at inquiry@qiangyisocks.com or message us on WhatsApp.');
       });
     });
   }
