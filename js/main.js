@@ -115,7 +115,7 @@
         inquiry.style.display = 'none';
         var box = document.createElement('div');
         box.style.cssText = 'padding:44px 24px;background:#f3f3f2;border-radius:6px;text-align:center';
-        box.innerHTML = '<h3 style="font-weight:900;text-transform:uppercase;margin-bottom:10px">Inquiry Sent</h3><p style="color:#6b6b6b">We will reply within 4 hours. For a faster response, message us on <a href="https://wa.me/8618875899527" style="text-decoration:underline">WhatsApp</a>.</p>';
+        box.innerHTML = '<h3 style="font-weight:900;text-transform:uppercase;margin-bottom:10px">Inquiry Sent</h3><p style="color:#6b6b6b">We will reply within 4 hours. For a faster response, message us on <a href="https://wa.me/8613606738940" style="text-decoration:underline">WhatsApp</a>.</p>';
         inquiry.parentNode.insertBefore(box, inquiry.nextSibling);
       }).catch(function () {
         if (btn) { btn.disabled = false; btn.textContent = 'Send Inquiry'; }
