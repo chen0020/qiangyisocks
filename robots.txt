@@ -1,3 +1,35 @@
+# Qiangyi Socks - Custom Socks Manufacturer
+# https://www.qiangyisocks.com
+
 User-agent: *
 Allow: /
-Sitemap: https://qiangyisocks.com/sitemap.xml
+Sitemap: https://www.qiangyisocks.com/sitemap.xml
+
+# Allow all major search engine bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Allow AI crawlers for GEO / AI search visibility
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
