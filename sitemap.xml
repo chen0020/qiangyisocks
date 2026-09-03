@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- Blog posts -->
+  <url>
+    <loc>https://www.qiangyisocks.com/blog-how-to-order-custom-socks-china.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <!-- Main pages -->
   <url>
     <loc>https://www.qiangyisocks.com/</loc>
